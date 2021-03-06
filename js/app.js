@@ -61,12 +61,12 @@ puertas.addEventListener('change', e => {
 
 transmision.addEventListener('change', e => {
     datosBusquda.transmision = e.target.value;
+    filtrarAuto();
 });
 
 color.addEventListener('change', e => {
     datosBusquda.color = e.target.value;
-
-    console.log(datosBusquda);
+    filtrarAuto();
 });
 
 
@@ -98,10 +98,7 @@ function llenarSelect(){
 }
 
 function filtrarAuto(){
-    const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo).filter(filtrarPuertas);
-
-    console.log(resultado);
-
+    const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo).filter(filtrarPuertas).filter(filtrarTransmision).filter(filtrarColor);
     mostrarAutos(resultado);
 }
 
@@ -152,6 +149,24 @@ function filtrarPuertas(auto){
 
     if(puertas){
         return auto.puertas === puertas;
+    }
+    return auto;
+}
+
+function filtrarTransmision(auto){
+    const {transmision} = datosBusquda;
+
+    if(transmision){
+        return auto.transmision === transmision;
+    }
+    return auto;
+}
+
+function filtrarColor(auto){
+    const {color} = datosBusquda;
+
+    if(color){
+        return auto.color === color;
     }
     return auto;
 }
