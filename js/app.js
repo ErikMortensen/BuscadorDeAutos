@@ -45,11 +45,13 @@ year.addEventListener('change', e => {
 });
 
 minimo.addEventListener('change', e => {
-    datosBusquda.minimo = e.target.value;
+    datosBusquda.minimo = parseInt(e.target.value);
+    filtrarAuto();
 });
 
 maximo.addEventListener('change', e => {
-    datosBusquda.maximo = e.target.value;
+    datosBusquda.maximo = parseInt(e.target.value);
+    filtrarAuto();
 });
 
 puertas.addEventListener('change', e => {
@@ -95,7 +97,7 @@ function llenarSelect(){
 }
 
 function filtrarAuto(){
-    const resultado = autos.filter(filtrarMarca).filter(filtrarYear);
+    const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo);
 
     console.log(resultado);
 
@@ -124,4 +126,22 @@ function limpiarHTML(){
     while(resultado.firstChild){
         resultado.removeChild(resultado.firstChild);
     }
+}
+
+function filtrarMinimo(auto){
+    const {minimo} = datosBusquda;
+
+    if(minimo){
+        return auto.precio >= minimo;
+    }
+    return auto;
+}
+
+function filtrarMaximo(auto){
+    const {maximo} = datosBusquda;
+
+    if(maximo){
+        return auto.precio <= maximo;
+    }
+    return auto;
 }
