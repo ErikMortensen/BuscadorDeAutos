@@ -26,7 +26,7 @@ const datosBusquda = {
 
 // Eventos
 document.addEventListener('DOMContentLoaded', () => {
-    mostrarAutos(); // muestra los years al cargar la pag
+    mostrarAutos(autos); // muestra los years al cargar la pag
 
     llenarSelect();
 
@@ -68,7 +68,8 @@ color.addEventListener('change', e => {
 
 
 // Funciones
-function mostrarAutos(){
+function mostrarAutos(autos){
+    limpiarHTML();
     autos.forEach( auto => {
         
         const { marca, modelo, year, puertas, transmision, precio, color } = auto;
@@ -97,6 +98,8 @@ function filtrarAuto(){
     const resultado = autos.filter(filtrarMarca).filter(filtrarYear);
 
     console.log(resultado);
+
+    mostrarAutos(resultado);
 }
 
 function filtrarMarca(auto){
@@ -115,4 +118,10 @@ function filtrarYear(auto){
         return auto.year === year;
     }
     return auto;
+}
+
+function limpiarHTML(){
+    while(resultado.firstChild){
+        resultado.removeChild(resultado.firstChild);
+    }
 }
